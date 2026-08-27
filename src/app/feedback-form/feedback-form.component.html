@@ -1,0 +1,130 @@
+<div class="form-wrapper">
+  <div class="form-card">
+    <!-- Header -->
+    <div class="form-header">
+      <div class="form-header__icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
+          <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+        </svg>
+      </div>
+      <h1 class="form-header__title">Get in Touch</h1>
+      <p class="form-header__subtitle">Have a question or feedback? We'd love to hear from you.</p>
+    </div>
+
+    <!-- Success Message -->
+    <div class="alert alert--success" role="alert" *ngIf="submitSuccess">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true">
+        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+      </svg>
+      <span>Your message has been sent. Thank you!</span>
+    </div>
+
+    <!-- Error Message -->
+    <div class="alert alert--error" role="alert" *ngIf="submitError">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+      </svg>
+      <span>Something went wrong. Please try again.</span>
+    </div>
+
+    <!-- Form -->
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate *ngIf="!submitSuccess" class="form-body">
+      <!-- Name row -->
+      <div class="form-row">
+        <div class="form-field" [class.form-field--error]="submitted && f['firstName'].errors">
+          <label for="firstName" class="form-label">
+            First Name <span class="required" aria-label="required">*</span>
+          </label>
+          <input
+            id="firstName"
+            type="text"
+            class="form-input"
+            formControlName="firstName"
+            placeholder="Jane"
+            autocomplete="given-name"
+            [attr.aria-invalid]="submitted && f['firstName'].errors ? 'true' : null"
+            aria-describedby="firstNameError"
+          />
+          <div id="firstNameError" class="form-error" role="alert" *ngIf="submitted && f['firstName'].errors">
+            <span *ngIf="f['firstName'].errors['required']">First name is required.</span>
+            <span *ngIf="f['firstName'].errors['minlength']">Must be at least 2 characters.</span>
+          </div>
+        </div>
+
+        <div class="form-field" [class.form-field--error]="submitted && f['lastName'].errors">
+          <label for="lastName" class="form-label">
+            Last Name <span class="required" aria-label="required">*</span>
+          </label>
+          <input
+            id="lastName"
+            type="text"
+            class="form-input"
+            formControlName="lastName"
+            placeholder="Doe"
+            autocomplete="family-name"
+            [attr.aria-invalid]="submitted && f['lastName'].errors ? 'true' : null"
+            aria-describedby="lastNameError"
+          />
+          <div id="lastNameError" class="form-error" role="alert" *ngIf="submitted && f['lastName'].errors">
+            <span *ngIf="f['lastName'].errors['required']">Last name is required.</span>
+            <span *ngIf="f['lastName'].errors['minlength']">Must be at least 2 characters.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="form-field" [class.form-field--error]="submitted && f['email'].errors">
+        <label for="email" class="form-label">
+          Email Address <span class="required" aria-label="required">*</span>
+        </label>
+        <input
+          id="email"
+          type="email"
+          class="form-input"
+          formControlName="email"
+          placeholder="jane.doe@example.com"
+          autocomplete="email"
+          [attr.aria-invalid]="submitted && f['email'].errors ? 'true' : null"
+          aria-describedby="emailError"
+        />
+        <div id="emailError" class="form-error" role="alert" *ngIf="submitted && f['email'].errors">
+          <span *ngIf="f['email'].errors['required']">Email address is required.</span>
+          <span *ngIf="f['email'].errors['email']">Please enter a valid email address.</span>
+        </div>
+      </div>
+
+      <!-- Question -->
+      <div class="form-field" [class.form-field--error]="submitted && f['question'].errors">
+        <label for="question" class="form-label">
+          Your Question or Comment <span class="required" aria-label="required">*</span>
+        </label>
+        <textarea
+          id="question"
+          class="form-input form-textarea"
+          formControlName="question"
+          placeholder="Type your question or feedback here…"
+          rows="5"
+          [attr.aria-invalid]="submitted && f['question'].errors ? 'true' : null"
+          aria-describedby="questionError"
+        ></textarea>
+        <div id="questionError" class="form-error" role="alert" *ngIf="submitted && f['question'].errors">
+          <span *ngIf="f['question'].errors['required']">Please enter your question or comment.</span>
+          <span *ngIf="f['question'].errors['minlength']">Please provide a bit more detail (at least 10 characters).</span>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <div class="form-actions">
+        <button type="submit" class="btn btn--primary" [disabled]="loading">
+          <span *ngIf="!loading">Send Message</span>
+          <span *ngIf="loading" class="btn__loading" aria-label="Sending…">
+            <span class="spinner" aria-hidden="true"></span>Sending…
+          </span>
+        </button>
+        <p class="form-note">
+          <span class="required">*</span> Required fields
+        </p>
+      </div>
+    </form>
+  </div>
+</div>
