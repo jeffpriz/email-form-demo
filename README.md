@@ -2,6 +2,12 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
 
+## GitHub Pages
+
+This app is automatically built and deployed to GitHub Pages on every push to `main` via the [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml) workflow. Once enabled (Settings > Pages > Source: GitHub Actions), it is available at https://jeffpriz.github.io/email-form-demo/.
+
+You can also trigger a deployment manually from the Actions tab using the "Run workflow" button.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
